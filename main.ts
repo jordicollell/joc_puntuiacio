@@ -19,7 +19,9 @@ basic.forever(function () {
         obstacle_2.change(LedSpriteProperty.Y, 1)
     }
     if (jugador.isTouching(obstacle) || jugador.isTouching(obstacle_2)) {
-        game.pause()
+        obstacle.delete()
+        obstacle_2.delete()
+        jugador.delete()
         basic.showLeds(`
             # . . . #
             . # . # .
@@ -29,13 +31,17 @@ basic.forever(function () {
             `)
         basic.pause(500)
         basic.clearScreen()
-        led.plotBarGraph(
-        0,
-        25
-        )
-        basic.pause(500)
+        basic.pause(100)
+        for (let index = 0; index < 20; index++) {
+            led.plotBarGraph(
+            puntuacio,
+            25
+            )
+            basic.pause(100)
+        }
+        jugador = game.createSprite(2, 4)
+        puntuacio = 0
     }
-    puntuacio = 0
     basic.pause(200)
     puntuacio += 1
     obstacle.delete()
